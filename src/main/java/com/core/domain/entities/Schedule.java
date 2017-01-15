@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 
 /**
- * Created by User on 13.01.2017.
+ * Created by Account on 13.01.2017.
  */
 @Entity
 public class Schedule {
@@ -16,13 +16,15 @@ public class Schedule {
     Long id;
     private ArrayList<DayOfWeek> days;
     private int shift;
+    private String groupname;
 
     public Schedule() {
     }
 
-    public Schedule(ArrayList<DayOfWeek> days, int shift) {
+    public Schedule(ArrayList<DayOfWeek> days, int shift, String groupname) {
         this.days = days;
         this.shift = shift;
+        this.groupname = groupname;
     }
 
     public ArrayList<DayOfWeek> getDays() {
@@ -47,5 +49,13 @@ public class Schedule {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getGroupname() {
+        return groupname;
+    }
+
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
 }

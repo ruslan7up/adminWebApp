@@ -1,7 +1,13 @@
 package com.dao;
 
+import com.core.domain.entities.BellTime;
+
+import java.util.List;
+
 /**
- * Created by User on 13.01.2017.
+ * Created by Account on 13.01.2017.
  */
 public interface BellTimeRepository {
+    List<BellTime> getBellTime();
+    void updateBellTime(BellTime bellTime);
 }

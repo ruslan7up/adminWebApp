@@ -9,8 +9,15 @@
 <html>
 <head>
     <title>Меню</title>
+    <link rel="shortcut icon" href="/resources/favicon.ico" type="image/ico">
+    <link href="/resources/css/homepage.css" rel="stylesheet">
 </head>
 <body>
-<h1>HELLO WORLD</h1>
+<h1>Меню</h1>
+<a href="/schedule/schedulelist">Расписание</a>
+<a href="#">Расписание звонков</a>
+<a href="#">Чат</a>
+<a href="#">Уведомления</a>
+<a href="/logout">Выход</a>
 </body>
 </html>

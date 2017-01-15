@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Created by User on 13.01.2017.
+ * Created by Account on 13.01.2017.
  */
 @Entity
 public class BellTime {

@@ -7,10 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Created by User on 13.01.2017.
+ * Created by Account on 13.01.2017.
  */
 @Entity
-public class User {
+public class Account {
 
     @Id
     @GeneratedValue
@@ -20,10 +20,10 @@ public class User {
     @NotEmpty
     private String password;
 
-    public User() {
+    public Account() {
     }
 
-    public User(String login, String password) {
+    public Account(String login, String password) {
         this.login = login;
         this.password = password;
     }
