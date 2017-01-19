@@ -1,6 +1,7 @@
 /**
  * Created by ruslan on 14.01.2017.
  */
+
 $('#trytologin').on('click', function () {
     $('#errfield').hide();
     var login = $('#login').val();

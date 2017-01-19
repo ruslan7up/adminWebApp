@@ -4,6 +4,8 @@ package com.core.domain.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Account on 13.01.2017.
@@ -14,17 +16,29 @@ public class Class {
     @GeneratedValue
     private Long id;
 
-    private Long classnumber;
+    @NotNull
+    @ManyToOne
+    private Schedule schedule;
+
+
     private String nameofasubject;
     private String cabinetnumber;
 
     public Class() {
     }
 
-    public Class(Long classnumber,String nameofasubject, String cabinetnumber) {
-        this.classnumber = classnumber;
+    public Class(Schedule schedule, String nameofasubject, String cabinetnumber) {
+        this.schedule = schedule;
         this.nameofasubject = nameofasubject;
         this.cabinetnumber = cabinetnumber;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public String getNameofasubject() {
@@ -51,11 +65,4 @@ public class Class {
         this.id = id;
     }
 
-    public Long getClassnumber() {
-        return classnumber;
-    }
-
-    public void setClassnumber(Long classnumber) {
-        this.classnumber = classnumber;
-    }
 }

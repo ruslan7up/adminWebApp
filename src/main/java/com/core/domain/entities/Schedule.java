@@ -3,7 +3,9 @@ package com.core.domain.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Account on 13.01.2017.
@@ -13,34 +15,36 @@ public class Schedule {
 
     @Id
     @GeneratedValue
-    Long id;
-    private ArrayList<DayOfWeek> days;
+    private Long id;
+
+    private String name;
     private int shift;
-    private String groupname;
+
+    @OneToMany(mappedBy = "schedule")
+    private List<Class> monday;
+    @OneToMany(mappedBy = "schedule")
+    private List<Class> tuesday;
+    @OneToMany(mappedBy = "schedule")
+    private List<Class> wednesday;
+    @OneToMany(mappedBy = "schedule")
+    private List<Class> thursday;
+    @OneToMany(mappedBy = "schedule")
+    private List<Class> friday;
+
+
 
     public Schedule() {
     }
 
-    public Schedule(ArrayList<DayOfWeek> days, int shift, String groupname) {
-        this.days = days;
+
+    public Schedule(String name, int shift, List<Class> monday, List<Class> tuesday, List<Class> wednesday, List<Class> thursday, List<Class> friday) {
+        this.name = name;
         this.shift = shift;
-        this.groupname = groupname;
-    }
-
-    public ArrayList<DayOfWeek> getDays() {
-        return days;
-    }
-
-    public void setDays(ArrayList<DayOfWeek> days) {
-        this.days = days;
-    }
-
-    public int getShift() {
-        return shift;
-    }
-
-    public void setShift(int shift) {
-        this.shift = shift;
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
     }
 
     public Long getId() {
@@ -51,11 +55,59 @@ public class Schedule {
         this.id = id;
     }
 
-    public String getGroupname() {
-        return groupname;
+    public String getName() {
+        return name;
     }
 
-    public void setGroupname(String groupname) {
-        this.groupname = groupname;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getShift() {
+        return shift;
+    }
+
+    public void setShift(int shift) {
+        this.shift = shift;
+    }
+
+    public List<Class> getMonday() {
+        return monday;
+    }
+
+    public void setMonday(List<Class> monday) {
+        this.monday = monday;
+    }
+
+    public List<Class> getTuesday() {
+        return tuesday;
+    }
+
+    public void setTuesday(List<Class> tuesday) {
+        this.tuesday = tuesday;
+    }
+
+    public List<Class> getWednesday() {
+        return wednesday;
+    }
+
+    public void setWednesday(List<Class> wednesday) {
+        this.wednesday = wednesday;
+    }
+
+    public List<Class> getThursday() {
+        return thursday;
+    }
+
+    public void setThursday(List<Class> thursday) {
+        this.thursday = thursday;
+    }
+
+    public List<Class> getFriday() {
+        return friday;
+    }
+
+    public void setFriday(List<Class> friday) {
+        this.friday = friday;
     }
 }

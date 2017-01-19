@@ -15,12 +15,9 @@
     <c:if test="${action.equals('edit')}">
         <title>Редактирование расписания</title>
     </c:if>
+    <script src="/resources/jquery/jquery-3.1.1.js"></script>
     <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.css">
-    <style>
-        table {
-            float: center;
-        }
-    </style>
+
 </head>
 <body>
 <c:if test="${action.equals('add')}">
@@ -28,6 +25,13 @@
 </c:if>
 <c:if test="${action.equals('edit')}">
     <%@include file="scheduleedit.jsp"%>
+</c:if>
+
+<c:if test="${action.equals('add')}">
+   <script src="/resources/js/scheduleAddScripts.js"></script>
+</c:if>
+<c:if test="${action.equals('edit')}">
+    <script src="/resources/js/scheduleEditScripts.js"></script>
 </c:if>
 </body>
 </html>
