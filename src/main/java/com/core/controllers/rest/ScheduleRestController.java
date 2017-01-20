@@ -31,11 +31,11 @@ public class ScheduleRestController {
                 schedule = new ObjectMapper().readValue(json, Schedule.class);
             } catch (IOException e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                System.out.println(e.getMessage());
                 return;
             }
-            System.out.println("ЙА СМОГ!");
-            System.out.println(schedule.getMonday().get(0).getNameofasubject()+schedule.getMonday().get(0).getCabinetnumber());
+            System.out.println(schedule.getFriday().get(0).getNameofasubject());
+            scheduleService.addSchedule(schedule);
+            response.setStatus(HttpServletResponse.SC_OK);
         } else
         {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);

@@ -1,7 +1,6 @@
 package com.core.services.impl;
 
 import com.core.domain.entities.BellTime;
-import com.core.domain.entities.Schedule;
 import com.core.services.BellTimeService;
 import com.dao.BellTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

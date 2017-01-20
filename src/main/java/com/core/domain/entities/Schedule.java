@@ -110,4 +110,5 @@ public class Schedule {
     public void setFriday(List<Class> friday) {
         this.friday = friday;
     }
+
 }

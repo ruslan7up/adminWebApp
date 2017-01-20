@@ -1,10 +1,7 @@
 package com.core.domain.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -17,7 +14,7 @@ public class Class {
     private Long id;
 
     @NotNull
-    @ManyToOne
+    @OneToOne
     private Schedule schedule;
 
 
@@ -64,5 +61,6 @@ public class Class {
     public void setId(Long id) {
         this.id = id;
     }
+
 
 }

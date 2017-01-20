@@ -9,6 +9,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by ruslan on 15.01.2017.
  */
@@ -24,11 +26,15 @@ public class ClassRepositoryImpl implements ClassRepository {
 
 
     @Override
-    public void addClass(Class clazz) {
+    public void addClass(List<List<Class>> clazz) {
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
-            session.save(clazz);
+            for (List<Class> claz:clazz) {
+                for (Class claz2: claz) {
+                    session.save(claz2);
+                }
+            }
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -40,7 +46,7 @@ public class ClassRepositoryImpl implements ClassRepository {
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
-            Query query = session.createQuery("DELETE FROM Class WHERE id=:id");
+            Query query = session.createQuery("DELETE FROM Class WHERE schedule_id=:id");
             query.setParameter("id", id);
             query.executeUpdate();
             transaction.commit();

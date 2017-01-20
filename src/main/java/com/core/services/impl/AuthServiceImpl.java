@@ -22,6 +22,6 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public void updateAccount(Account account) {
-
+        repository.updateAccount(account);
     }
 }
