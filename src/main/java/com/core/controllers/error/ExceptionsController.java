@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Created by ruslan on 22.01.2017.
  */
-/*
 @ControllerAdvice
 public class ExceptionsController {
 
@@ -18,4 +17,3 @@ public class ExceptionsController {
        return "exception";
     }
 }
-*/

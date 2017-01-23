@@ -24,8 +24,6 @@ public class BellTImeServiceImpl implements BellTimeService {
 
     @Override
     public void updateBellSchedule(List<BellTime> list) {
-        for (BellTime tmp: list) {
-            repository.updateBellTime(tmp);
-        }
+        repository.updateBellTime(list);
     }
 }

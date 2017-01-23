@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface BellTimeRepository {
     List<BellTime> getBellTime();
-    void updateBellTime(BellTime bellTime);
+    void updateBellTime(List<BellTime> bellTime);
 }

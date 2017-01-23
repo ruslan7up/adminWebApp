@@ -26,7 +26,7 @@ public class BellTimeRepositoryImpl implements BellTimeRepository {
 
     @Override
     public List<BellTime> getBellTime() {
-        Query query = session.createQuery("FROM BellTime");
+        Query query = session.createQuery("FROM BellTime ORDER BY id");
         List<BellTime> result;
         try {
             result = query.getResultList();
@@ -37,11 +37,13 @@ public class BellTimeRepositoryImpl implements BellTimeRepository {
     }
 
     @Override
-    public void updateBellTime(BellTime bellTime) {
+    public void updateBellTime(List<BellTime> bellTime) {
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
-            session.merge(bellTime);
+            for (BellTime tmp:bellTime) {
+                session.merge(tmp);
+            }
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();

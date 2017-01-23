@@ -23,16 +23,15 @@ public class AuthController {
     @Autowired
     private AuthService service;
 
+    @Autowired
+    PasswordEncoder encoder;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public void authUser(@RequestParam String login, @RequestParam String pass, HttpSession session, HttpServletResponse response) {
         if (login != null && pass != null) {
             Account account = service.getAccountByLogin(login);
             if (account != null) {
-                PasswordEncoder passEncoder = new BCryptPasswordEncoder(6);
-                String hashedPass = passEncoder.encode(pass);
-                System.out.println(pass);
-                System.out.println(passEncoder.matches(pass, hashedPass));
-                if (passEncoder.matches(pass,hashedPass)) {
+                if (encoder.matches(pass,account.getPassword())) {
                     session.setAttribute("user", account);
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

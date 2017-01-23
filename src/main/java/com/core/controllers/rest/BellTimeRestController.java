@@ -2,6 +2,7 @@ package com.core.controllers.rest;
 
 import com.core.domain.entities.BellTime;
 import com.core.services.BellTimeService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +30,7 @@ public class BellTimeRestController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public void updateBellTime(@RequestParam String json, HttpSession session, HttpServletResponse response) throws IOException {
         if(session.getAttribute("user")!=null) {
-            ArrayList<BellTime> list = new ObjectMapper().readValue(json, ArrayList.class);
-            for (BellTime tmp:list) {
-                System.out.println(tmp.getStartTime());
-            }
+            ArrayList<BellTime> list = new ObjectMapper().readValue(json, new TypeReference<ArrayList<BellTime>>(){});
             if(list!=null) {
                 service.updateBellSchedule(list);
             } else {
