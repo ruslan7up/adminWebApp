@@ -27,7 +27,12 @@ public class BellTimeRepositoryImpl implements BellTimeRepository {
     @Override
     public List<BellTime> getBellTime() {
         Query query = session.createQuery("FROM BellTime");
-        List<BellTime> result = query.getResultList();
+        List<BellTime> result;
+        try {
+            result = query.getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("error");
+        }
         return result;
     }
 
@@ -40,6 +45,7 @@ public class BellTimeRepositoryImpl implements BellTimeRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+            throw new RuntimeException("error");
         }
     }
 }

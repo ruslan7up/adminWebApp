@@ -4,12 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Account on 13.01.2017.
  */
+
 @Entity
 public class Schedule {
 
@@ -110,5 +110,4 @@ public class Schedule {
     public void setFriday(List<Class> friday) {
         this.friday = friday;
     }
-
 }

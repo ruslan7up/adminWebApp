@@ -17,7 +17,6 @@
     </c:if>
     <script src="/resources/jquery/jquery-3.1.1.js"></script>
     <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.css">
-
 </head>
 <body>
 <c:if test="${action.equals('add')}">

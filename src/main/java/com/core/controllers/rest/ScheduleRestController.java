@@ -33,7 +33,6 @@ public class ScheduleRestController {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
-            System.out.println(schedule.getFriday().get(0).getNameofasubject());
             scheduleService.addSchedule(schedule);
             response.setStatus(HttpServletResponse.SC_OK);
         } else
@@ -44,11 +43,28 @@ public class ScheduleRestController {
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public void removeSchedule(@RequestParam String id, HttpSession session, HttpServletResponse response) {
+        if(session.getAttribute("user")!=null){
+            scheduleService.removeSchedule(Long.parseLong(id));
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
 
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public void updateSchedule(@RequestParam String json, HttpSession session, HttpServletResponse response) {
-
+        if(session.getAttribute("user")!=null) {
+            Schedule schedule = null;
+            try {
+                schedule = new ObjectMapper().readValue(json, Schedule.class);
+            } catch (IOException e) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+            scheduleService.updateSchedule(schedule);
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
     }
 }

@@ -15,19 +15,29 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
 </head>
 <body>
-<a href="/schedule/addschedule">ADD SCHEDULE</a>
+<button type="button" class="btn btn-default" id="addsched">Добавить расписание</button>
 <table class="table table-bordered">
     <thead>
-    <th>
-        <span class="fa fa-cog"></span>
-        <td>Смена</td>
-        <td>Название группы</td>
-    </th>
+    <tr>
+        <th><span class="fa fa-cog"></span></th>
+        <th>Смена</th>
+        <th>Название группы</th>
+    </tr>
     </thead>
-
     <tbody>
-
+    <c:forEach items="${schedules}" var="schedule">
+        <tr>
+            <td><button type="button" class="btn btn-success btn-edt" data-id="${schedule.getId()}"><span class="glyphicon glyphicon-edit"></span></button><button type="button" class="btn btn-danger btn-del" data-id="${schedule.getId()}"><span class="glyphicon glyphicon-remove"></span></button>  </td>
+            <td>${schedule.getShift()}</td>
+            <td>${schedule.getName()}</td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
+
+
+<script src="/resources/jquery/jquery-3.1.1.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.js"></script>
+<script src="/resources/js/scheduleListScripts.js"></script>
 </body>
 </html>

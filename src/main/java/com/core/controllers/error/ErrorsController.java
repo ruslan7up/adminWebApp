@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/errors")
 public class ErrorsController {
+
     @RequestMapping(value = "/error404", method = RequestMethod.GET)
     public ModelAndView get404page() {
         return  new ModelAndView("page404");

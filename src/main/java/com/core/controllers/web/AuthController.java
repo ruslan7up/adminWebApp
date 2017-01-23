@@ -21,12 +21,12 @@ import java.io.IOException;
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private AuthService service;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public void authUser(@RequestParam String login, @RequestParam String pass, HttpSession session, HttpServletResponse response) {
         if (login != null && pass != null) {
-            Account account = authService.getAccountByLogin(login);
+            Account account = service.getAccountByLogin(login);
             if (account != null) {
                 PasswordEncoder passEncoder = new BCryptPasswordEncoder(6);
                 String hashedPass = passEncoder.encode(pass);

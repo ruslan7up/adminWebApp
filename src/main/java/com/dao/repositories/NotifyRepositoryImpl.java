@@ -25,14 +25,24 @@ public class NotifyRepositoryImpl implements NotifyRepository {
     @Override
     public List<Notify> getAllNotifies() {
         Query query = session.createQuery("FROM Notify");
-        List<Notify> result = query.getResultList();
+        List<Notify> result = null;
+        try {
+           result = query.getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("error");
+        }
         return result;
     }
 
     @Override
     public List<Notify> getLastNotifies() {
         Query query = session.createQuery("FROM Notify ORDER BY id DESC LIMIT 6");
-        List<Notify> result = query.getResultList();
+        List<Notify> result = null;
+        try {
+            result = query.getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("error");
+        }
         return result;
     }
 
@@ -45,6 +55,7 @@ public class NotifyRepositoryImpl implements NotifyRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+            throw new RuntimeException("error");
         }
     }
 }

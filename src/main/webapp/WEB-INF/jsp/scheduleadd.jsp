@@ -7,6 +7,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <h3>Название группы:</h3>
 
 <input type="text" class="form-control" id="name">

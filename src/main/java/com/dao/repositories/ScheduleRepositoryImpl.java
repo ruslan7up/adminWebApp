@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Repository
-public class ScheduleRepositoryImpl implements ScheduleRepository{
+public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     private Session session;
 
@@ -28,13 +28,19 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Override
     public List<Schedule> getAllSchedules() {
         Query query = session.createQuery("FROM Schedule");
-        List<Schedule> result = query.getResultList();
+        List<Schedule> result = null;
+        try {
+            result = query.getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("error");
+        }
         return result;
     }
 
     @Override
     public Schedule getScheduleByID(Long id) {
         Query query = session.createQuery("FROM Schedule WHERE id=:id");
+        query.setParameter("id", id);
         Schedule result = (Schedule) query.getSingleResult();
         return result;
     }
@@ -50,6 +56,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+            throw new RuntimeException("error");
         }
 
     }
@@ -65,6 +72,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         } catch (Exception e)
         {
             transaction.rollback();
+            throw new RuntimeException("error");
         }
     }
 
@@ -78,6 +86,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         } catch (Exception e)
         {
             transaction.rollback();
+            throw new RuntimeException("error");
         }
     }
 }

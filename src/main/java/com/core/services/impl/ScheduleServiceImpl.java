@@ -47,12 +47,26 @@ public class ScheduleServiceImpl implements ScheduleService {
                 clazz.setSchedule(schedule);
             }
         }
-        classrepository.addClass(list);
         repository.addSchedule(schedule);
+        classrepository.addClass(list);
+
     }
 
     @Override
     public void updateSchedule(Schedule schedule) {
+        classrepository.removeClass(schedule.getId());
+        List<List<Class>> list = new ArrayList<>();
+        list.add(schedule.getMonday());
+        list.add(schedule.getTuesday());
+        list.add(schedule.getWednesday());
+        list.add(schedule.getThursday());
+        list.add(schedule.getFriday());
+        for (List<Class> tmp:list) {
+            for (Class clazz:tmp) {
+                clazz.setSchedule(schedule);
+            }
+        }
+        classrepository.addClass(list);
         repository.updateSchedule(schedule);
     }
 

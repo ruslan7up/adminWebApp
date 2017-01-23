@@ -17,7 +17,7 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public Account getAccountByLogin(String login) {
-        return  repository.getAccountByLogin(login);
+        return repository.getAccountByLogin(login);
     }
 
     @Override
