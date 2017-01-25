@@ -8,10 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Онлайн Чат</title>
+    <title>Чат</title>
 </head>
 <body>
-
+<div id="messages"></div>
+<textarea placeholder="YOUR TEXT"></textarea>
+<button id="sendmessage" type="submit"></button>
+<script src="/resources/jquery/jquery-3.1.1.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.js"></script>
+<script src="/resources/sockjs/sockjs-0.3.4.js"></script>
+<script src="/resources/stomp/stomp.js"></script>
+<script src="/resources/js/chatScripts.js"></script>
 </body>
 
 </html>

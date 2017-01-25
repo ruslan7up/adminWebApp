@@ -16,7 +16,7 @@
 <h1>Меню</h1>
 <a href="/schedule/schedulelist">Расписание</a>
 <a href="/belltime/belltimetable">Расписание звонков</a>
-<a href="#">Чат</a>
+<a href="/chat/get">Чат</a>
 <a href="#">Уведомления</a>
 <a href="/logout">Выход</a>
 </body>

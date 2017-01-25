@@ -78,5 +78,7 @@
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-ehcache:5.2.2.Final" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.10.1" level="project" />
     <orderEntry type="library" name="Maven: jstl:jstl:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-messaging:4.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-websocket:4.3.0.RELEASE" level="project" />
   </component>
 </module>
