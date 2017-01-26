@@ -12,8 +12,9 @@
 </head>
 <body>
 <div id="messages"></div>
-<textarea placeholder="YOUR TEXT"></textarea>
-<button id="sendmessage" type="submit"></button>
+<input placeholder="YOUR NAME" id="nameofuser">
+<textarea placeholder="Текст" id="text"></textarea>
+<button id="sendmessage" type="submit">Отправить</button>
 <script src="/resources/jquery/jquery-3.1.1.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.js"></script>
 <script src="/resources/sockjs/sockjs-0.3.4.js"></script>

@@ -1,14 +1,31 @@
 /**
  * Created by ruslan on 24.01.2017.
  */
-var stompClient = null;
-$(document).ready(function () {
-   var socket = new SockJS('/chat');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        alert('CONNECTED: '+frame);
-        stompClient.subscribe('/chat/get', function (text) {
-            $('#messages').append('<p>'+JSON.parse(text.body).content+'</p>');
-        })
-    })
+var socket = new WebSocket("ws://localhost:8080/chat");
+
+socket.onmessage = function (event) {
+    var info = JSON.parse(event.data);
+
+    var name= info.name;
+    var message = info.message;
+
+    $('<p>'+name+':'+message+'</p>').appendTo("#messages");
+};
+
+socket.onopen = function () {
+  alert("CONNECTION ESTABLISHED!");
+};
+
+$('#sendmessage').on('click', function () {
+   var info = {
+       "name":$('#nameofuser').val(),
+       "message":$('#text').val()
+   };
+
+    socket.send(JSON.stringify(info));
 });
+
+$(window).bind("beforeunload", function() {
+    socket.close()
+});
+

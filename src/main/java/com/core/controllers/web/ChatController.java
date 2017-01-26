@@ -3,6 +3,7 @@ package com.core.controllers.web;
 
 import com.core.domain.Message;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,9 +24,5 @@ public class ChatController {
     }
 
 
-    @MessageMapping("/chat")
-    public Message text(Message message) throws Exception {
-        return new Message(message.getName(),message.getMessage());
-    }
 
 }

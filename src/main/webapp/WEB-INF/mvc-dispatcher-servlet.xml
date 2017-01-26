@@ -2,14 +2,22 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <context:component-scan base-package="com.core.controllers"/>
     <context:component-scan base-package="com.core.services.impl"/>
     <context:component-scan base-package="com.dao.repositories"/>
+
+    <bean id="webSockHandler" class="com.core.websockets.ChatHandler"/>
+    <websocket:handlers>
+        <websocket:mapping path="/chat" handler="webSockHandler"/>
+    </websocket:handlers>
+
 
     <mvc:annotation-driven/>
 
