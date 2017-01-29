@@ -68,7 +68,7 @@ $('#tryadd').on('click',function() {
     });
 
 
-    alert(JSON.stringify(jsonRows));
+    alert('DEBUG' + JSON.stringify(jsonRows));
 
     $.ajax({
         type: 'post',

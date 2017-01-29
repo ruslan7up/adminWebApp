@@ -25,6 +25,10 @@
         <constructor-arg name="strength" value="12"/>
     </bean>
 
+    <bean id="mapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+
+    </bean>
+
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>

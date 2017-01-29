@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Отправить уведомление</title>
 </head>
 <body>
-
+<textarea placeholder="Текст уведомления"></textarea>
+<button type="submit">Отправить уведомление!</button>
 </body>
 </html>
