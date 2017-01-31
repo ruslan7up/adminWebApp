@@ -3,6 +3,7 @@ package com.core.controllers.web;
 import com.core.domain.entities.Account;
 import com.core.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -26,9 +28,30 @@ public class AuthController {
     @Autowired
     private PasswordEncoder encoder;
 
+
+    @RequestMapping(value = "/changepass", method = RequestMethod.POST)
+    public void changePass(@RequestParam String oldpass, @RequestParam String newpass, HttpSession session, HttpServletResponse response) {
+        if(session.getAttribute("user")!=null) {
+            Account account = service.getAccountByLogin("admin");
+            if(encoder.matches(oldpass,account.getPassword())) {
+                account.setPassword(encoder.encode(newpass));
+                session.removeAttribute("user");
+                try {
+                    response.sendRedirect("/");
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public void authUser(@RequestParam String login, @RequestParam String pass, HttpSession session, HttpServletResponse response) {
         if (login != null && pass != null) {
+
             Account account = service.getAccountByLogin(login);
             if (account != null) {
                 if (encoder.matches(pass,account.getPassword())) {
