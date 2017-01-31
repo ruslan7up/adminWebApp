@@ -10,6 +10,7 @@ import java.util.List;
 public interface ScheduleRepository {
     List<Schedule> getAllSchedules();
     Schedule getScheduleByID(Long id);
+    List<Schedule> getScheduleByName(String name);
     void removeSchedule(Long id);
     void addSchedule(Schedule schedule);
     void updateSchedule(Schedule schedule);

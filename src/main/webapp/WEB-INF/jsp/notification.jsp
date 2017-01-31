@@ -11,7 +11,7 @@
     <title>Отправить уведомление</title>
 </head>
 <body>
-<textarea placeholder="Текст уведомления"></textarea>
-<button type="submit">Отправить уведомление!</button>
+<textarea placeholder="Текст уведомления" id="notificationtext"></textarea>
+<button type="submit" id="sendnotify">Отправить уведомление!</button>
 </body>
 </html>

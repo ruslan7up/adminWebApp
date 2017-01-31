@@ -1,7 +1,7 @@
 /**
  * Created by ruslan on 24.01.2017.
  */
-var socket = new WebSocket("ws://localhost:8080/chat");
+var socket = new WebSocket("ws://78.46.123.237:7777/chat");
 
 socket.onmessage = function (event) {
     var info = JSON.parse(event.data);

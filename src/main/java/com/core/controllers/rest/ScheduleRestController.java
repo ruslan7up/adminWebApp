@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ruslan on 19.01.2017.
@@ -66,5 +68,29 @@ public class ScheduleRestController {
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
+    }
+
+    @RequestMapping(value = "/getByName", method = RequestMethod.POST)
+    public List<Schedule> getScheduleByName(@RequestParam String name, HttpSession session,HttpServletResponse response) {
+        if(session.getAttribute("user")!=null) {
+            if(name!=null && !name.isEmpty()) {
+                return scheduleService.getScheduleByName(name);
+            } else {
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return new ArrayList<>();
+    }
+
+    @RequestMapping(value = "/getAll", method = RequestMethod.POST)
+    public List<Schedule> getAllSchedules(HttpSession session,HttpServletResponse response) {
+        if(session.getAttribute("user")!=null) {
+            return scheduleService.getAllSchedules();
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return new ArrayList<>();
     }
 }

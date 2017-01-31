@@ -24,7 +24,7 @@ public class AuthController {
     private AuthService service;
 
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public void authUser(@RequestParam String login, @RequestParam String pass, HttpSession session, HttpServletResponse response) {
@@ -34,10 +34,10 @@ public class AuthController {
                 if (encoder.matches(pass,account.getPassword())) {
                     session.setAttribute("user", account);
                 } else {
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 }
             } else {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
         }
     }
@@ -51,8 +51,6 @@ public class AuthController {
             } catch (IOException e) {
                 response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
             }
-        } else {
-            return;
         }
     }
 }

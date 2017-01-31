@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class ExceptionsController {
-
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
     public String getException(Throwable throwable)  {
