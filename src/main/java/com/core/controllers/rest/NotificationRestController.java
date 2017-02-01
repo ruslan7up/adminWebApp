@@ -15,8 +15,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Created by ruslan on 30.01.2017.
@@ -39,26 +37,30 @@ public class NotificationRestController {
         service.addNewToken(token);
     }
 
-    @RequestMapping(value = "/sendNotification", method = RequestMethod.GET)
+    @RequestMapping(value = "/sendNotification", method = RequestMethod.POST)
     public void sendNotification(@RequestParam String message, HttpSession session,HttpServletResponse response) {
         if(session.getAttribute("user")!=null) {
             if(message!=null && !message.isEmpty()) {
             try {
-                String tokens = "{\"to\":\"fK04_ui_bus:APA91bFIL0vaFkQ5HALXnH5aNBjOo4fztRxQUQGoF7DGkZwU5_3u3zY-HCaXluKODrJR6xEjA91xIH0CjigoG4nH-YlFKPS9saJ-zjuSGc_f52ILZrSe0b5ls0wa-Kv9oX27iOmiX0mw\",\"data\":{\"hello\":\"friend\"}}";
+                String data = "{\"to\":\"/topics/notifies\",\"data\":{\"message\":\""+message+"\"}}";
                 URL url = new URL("https://fcm.googleapis.com/fcm/send");
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setDoOutput(true);
                 http.setRequestMethod("POST");
                 http.setRequestProperty("Content-Type","application/json");
                 http.setRequestProperty("Authorization", "key="+AUTH_KEY);
-                try(OutputStreamWriter os = new OutputStreamWriter(http.getOutputStream())) {
-                    os.write(tokens);
+                try(OutputStream os = http.getOutputStream()) {
+                    os.write(data.getBytes("UTF-8"));
                     os.flush();
                 } catch (Exception e) {
-                    System.out.println("OS EXCEPTION CATCHED "+e.getMessage());
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
 
-                System.out.println(http.getResponseCode());
+                if(http.getResponseCode()==200) {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
             } catch (Exception e) {
                 System.out.println("EXCEPTION CATCHED "+e.getMessage());
             }} else {

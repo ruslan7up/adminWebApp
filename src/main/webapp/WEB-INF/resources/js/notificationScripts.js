@@ -3,19 +3,22 @@
  */
 $('#sendnotify').on('click', function () {
     $.ajax({
-        dataType: 'application/json',
         type : 'POST',
-        url : "https://fcm.googleapis.com/fcm/send",
-        headers : {
-            Authorization : 'key=' + 'AIzaSyBint8ilw16Xp_0qhXv-FF4uk0Mpza1wP0'
-        },
-
+        url : "/notificationRest/sendNotification",
         data : {
-            "to": "/topics/notifies",
-            "data": {
-                "message": "This is a Firebase Cloud Messaging Topic Message!",
-            }
+            "message":$('#notificationtext').val()
         },
-
+        success: function () {
+            $('.result').removeClass('alert alert-success');
+            $('.result').removeClass('alert alert-danger');
+            $('.result').addClass('alert alert-success');
+            $('.result').html('<strong>Готово!</strong> Уведомление было успешно разослано всем пользователям!');
+        },
+        error: function () {
+            $('.result').removeClass('alert alert-success');
+            $('.result').removeClass('alert alert-danger');
+            $('.result').addClass('alert alert-danger');
+            $('.result').html('<strong>Похоже что-то пошло не так!</strong> При отправке уведомления возникла ошибка!');
+        }
     });
 });
