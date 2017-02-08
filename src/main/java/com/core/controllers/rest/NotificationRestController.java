@@ -1,7 +1,7 @@
 package com.core.controllers.rest;
 
-import com.core.domain.entities.MobileToken;
-import com.core.services.MobileTokenService;
+import com.core.domain.entities.Notify;
+import com.core.services.NotifyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by ruslan on 30.01.2017.
@@ -24,25 +24,20 @@ import java.net.URL;
 public class NotificationRestController {
 
     @Autowired
-    private MobileTokenService service;
+    private NotifyService notifyService;
 
     @Autowired
     private ObjectMapper mapper;
 
-    private final String AUTH_KEY = "AIzaSyBint8ilw16Xp_0qhXv-FF4uk0Mpza1wP0";
+    private final String AUTH_KEY = "AIzaSyC8VGMfZhYJIRd8sMIiMumZUh6sPEqC1kU";
 
-
-    @RequestMapping(value = "/registerDevice", method = RequestMethod.GET)
-    public void registerPhone(@RequestParam String token) {
-        service.addNewToken(token);
-    }
 
     @RequestMapping(value = "/sendNotification", method = RequestMethod.POST)
     public void sendNotification(@RequestParam String message, HttpSession session,HttpServletResponse response) {
         if(session.getAttribute("user")!=null) {
             if(message!=null && !message.isEmpty()) {
             try {
-                String data = "{\"to\":\"/topics/notifies\",\"data\":{\"message\":\""+message+"\"}}";
+                String data = "{\"to\":\"/topics/notifications\",\"data\":{\"message\":\""+message+"\"}}";
                 URL url = new URL("https://fcm.googleapis.com/fcm/send");
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                 http.setDoOutput(true);
@@ -55,9 +50,9 @@ public class NotificationRestController {
                 } catch (Exception e) {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
-
                 if(http.getResponseCode()==200) {
                     response.setStatus(HttpServletResponse.SC_OK);
+                    notifyService.addNotify(new Notify(message));
                 } else {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
@@ -69,5 +64,10 @@ public class NotificationRestController {
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
+    }
+
+    @RequestMapping(value = "/getLastNotifications", method = RequestMethod.GET)
+    private List<Notify> getLastNotifications() {
+        return notifyService.getLastNotifies();
     }
 }

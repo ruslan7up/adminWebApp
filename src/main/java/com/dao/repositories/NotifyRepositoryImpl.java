@@ -36,7 +36,8 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 
     @Override
     public List<Notify> getLastNotifies() {
-        Query query = session.createQuery("FROM Notify ORDER BY id DESC LIMIT 6");
+        Query query = session.createQuery("FROM Notify ORDER BY id DESC");
+        query.setMaxResults(6);
         List<Notify> result = null;
         try {
             result = query.getResultList();

@@ -36,7 +36,6 @@ public class ChatHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        System.out.println("CLIENT CLOSE THE CONNECTION");
         users.remove(session);
     }
     @Override
