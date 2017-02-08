@@ -13,12 +13,12 @@
     <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form id="addnewsform">
+<%--<form id="addnewsform">--%>
     <input type="text" id="title" name="title" placeholder="Название новости"> <br/>
     <textarea placeholder="Текст" id="newstext" name="text"></textarea><br/>
     <input type="file" name="file" id="files" multiple value="Выбрать картинки" accept=".png,.bmp,.jpg,.jpeg"><br/>
     <input type="submit" id="btnsubmit" value="Добавить новость">
-</form>
+<%--</form>--%>
     <table class="table table-bordered">
         <thead>
         <tr>

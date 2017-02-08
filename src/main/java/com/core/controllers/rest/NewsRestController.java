@@ -28,7 +28,7 @@ import java.util.UUID;
 @RestController
 public class NewsRestController {
 
-    private String path = "F:/newsres/";
+    private String path = ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("")+"\\WEB-INF\\resources\\newsres\\";
 
     @Autowired
     private NewsService service;
@@ -36,7 +36,6 @@ public class NewsRestController {
     @RequestMapping(value = "/createnews", method = RequestMethod.POST)
     public void uploadFile(@RequestParam List<MultipartFile> file,@RequestParam String title, @RequestParam String text, HttpSession session, HttpServletResponse response) throws Exception{
         if(session.getAttribute("user")!=null) {
-/*            System.out.println(ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath(""));*/
             if(!file.isEmpty() && file!=null) {
                 List<Link> links = new ArrayList<>();
                 try {
@@ -64,7 +63,6 @@ public class NewsRestController {
             } else {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
-     /*       response.sendRedirect("/home");*/
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
