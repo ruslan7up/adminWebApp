@@ -39,7 +39,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public Integer getNumberOfPages() {
-        Long count = ((Long) session.createQuery("SELECT count(*) from News").uniqueResult());
+        Long count = ((long) session.createQuery("SELECT count(*) from News").uniqueResult());
         return (int) Math.ceil((double) count.intValue()/10);
     }
 

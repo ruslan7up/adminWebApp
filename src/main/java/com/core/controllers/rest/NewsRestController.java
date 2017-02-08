@@ -28,13 +28,13 @@ import java.util.UUID;
 @RestController
 public class NewsRestController {
 
-    private String path = ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("")+"\\WEB-INF\\resources\\newsres\\";
+    private String path = ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("")+"/WEB-INF/resources/newsres/";
 
     @Autowired
     private NewsService service;
 
     @RequestMapping(value = "/createnews", method = RequestMethod.POST)
-    public void uploadFile(@RequestParam List<MultipartFile> file,@RequestParam String title, @RequestParam String text, HttpSession session, HttpServletResponse response) throws Exception{
+    public void uploadFile(@RequestParam List<MultipartFile> file,@RequestParam String title, @RequestParam String text, HttpSession session, HttpServletResponse response) throws Exception {
         if(session.getAttribute("user")!=null) {
             if(!file.isEmpty() && file!=null) {
                 List<Link> links = new ArrayList<>();
@@ -49,7 +49,7 @@ public class NewsRestController {
                             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(path+name+extension)));
                             stream.write(bytes);
                             stream.close();
-                            links.add(new Link(path+name+extension));
+                            links.add(new Link("/resources/newsres/"+name+extension));
                         }
                     }
                     Date date = new Date();
