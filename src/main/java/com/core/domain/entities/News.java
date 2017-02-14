@@ -1,9 +1,6 @@
 package com.core.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +15,7 @@ public class News {
     private Long id;
     private String title;
     private Date date;
+    @Column(columnDefinition = "text")
     private String text;
 
     @OneToMany(mappedBy = "news")

@@ -11,6 +11,6 @@
     <title>error</title>
 </head>
 <body>
-<h1>Неизвестная ошибка</h1>
+<h1>Неизвестная ошибка ${exception}</h1>
 </body>
 </html>
