@@ -37,9 +37,6 @@ public class NewsRestController {
     @RequestMapping(value = "/createnews", method = RequestMethod.POST)
     public void uploadFile(@RequestParam List<MultipartFile> file,@RequestParam String title, @RequestParam String text, HttpSession session, HttpServletResponse response) throws Exception {
         if(session.getAttribute("user")!=null) {
-            System.out.println("1"+new String(title.getBytes("ISO-8859-1"),"cp1251"));
-            System.out.println("2"+new String(title.getBytes("ISO-8859-1"),"UTF-8"));
-            System.out.println("3"+title);
             if(file!=null && !file.isEmpty()) {
                 List<Link> links = new ArrayList<>();
                 try {
@@ -56,7 +53,7 @@ public class NewsRestController {
                         }
                     }
                     Date date = new Date();
-                    News news = new News(title,date,text,links);
+                    News news = new News(new String(title.getBytes("ISO-8859-1"),"UTF-8"),date,new String(text.getBytes("ISO-8859-1"),"UTF-8"),links);
                     service.addNews(news);
                     response.setStatus(HttpServletResponse.SC_OK);
                 } catch (Exception e) {
@@ -66,19 +63,8 @@ public class NewsRestController {
             } else {
                 List<Link> links = new ArrayList<>();
                 try {
-                    for (MultipartFile tmp : file) {
-                        if (!tmp.isEmpty() && tmp != null && tmp.getOriginalFilename().matches("^.*\\.(png|bmp|jpg|jpeg)$")) {
-                            byte[] bytes = tmp.getBytes();
-                            String filename = tmp.getOriginalFilename();
-                            String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-                            String name = generateNewUUID(extension);
-                            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(path + name + extension)));
-                            stream.write(bytes);
-                            stream.close();
-                        }
-                    }
                     Date date = new Date();
-                    News news = new News(title, date, text, links);
+                    News news = new News(new String(title.getBytes("ISO-8859-1"),"UTF-8"),date,new String(text.getBytes("ISO-8859-1"),"UTF-8"),links);
                     service.addNews(news);
                     response.setStatus(HttpServletResponse.SC_OK);
                 } catch (Exception e) {
