@@ -1,5 +1,7 @@
 package com.core.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +18,7 @@ public class Link {
 
     @NotNull
     @OneToOne
+    @JsonIgnore
     private News news;
 
     public Link(String link, News news) {

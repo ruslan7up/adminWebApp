@@ -12,11 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @ControllerAdvice
 public class ExceptionsController {
-    @ExceptionHandler(Throwable.class)
+  /*  @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView getException(Throwable throwable)  {
        ModelMap modelMap = new ModelMap();
         modelMap.put("exception",throwable.getClass().getSimpleName()+":"+throwable.getMessage());
         return new ModelAndView("exception", modelMap);
-    }
+    }*/
 }
