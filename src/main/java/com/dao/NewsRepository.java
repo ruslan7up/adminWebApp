@@ -11,6 +11,7 @@ public interface NewsRepository {
 
     public List<News> getNewsByPageNumber(int page);
     public Integer getNumberOfPages();
+    public News getNewsById(long id);
     public void addNews(News news);
     public void removeNews(Long id);
 }

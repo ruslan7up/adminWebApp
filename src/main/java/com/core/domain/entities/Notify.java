@@ -3,6 +3,7 @@ package com.core.domain.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * Created by Account on 13.01.2017.
@@ -13,12 +14,14 @@ public class Notify {
     @GeneratedValue
     private Long id;
     private String notifymessage;
+    private Date date;
 
     public Notify() {
     }
 
-    public Notify(String notifymessage) {
+    public Notify(String notifymessage, Date date) {
         this.notifymessage = notifymessage;
+        this.date = date;
     }
 
     public Long getId() {
@@ -37,4 +40,11 @@ public class Notify {
         this.notifymessage = notifymessage;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

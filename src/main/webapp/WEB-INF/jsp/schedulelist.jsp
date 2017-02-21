@@ -27,7 +27,7 @@
     <tbody>
     <c:forEach items="${schedules}" var="schedule">
         <tr>
-            <td><button type="button" class="btn btn-success btn-edt" data-id="${schedule.getId()}"><span class="glyphicon glyphicon-edit"></span></button><button type="button" class="btn btn-danger btn-del" data-id="${schedule.getId()}"><span class="glyphicon glyphicon-remove"></span></button>  </td>
+            <td><button type="button" class="btn btn-success btn-edt" data-id="${schedule.getId()}"><span class="glyphicon glyphicon-edit"></span></button><button type="button" class="btn btn-danger btn-del" data-id="${schedule.getId()}"><span class="glyphicon glyphicon-remove"></span></button></td>
             <td>${schedule.getShift()}</td>
             <td>${schedule.getName()}</td>
         </tr>

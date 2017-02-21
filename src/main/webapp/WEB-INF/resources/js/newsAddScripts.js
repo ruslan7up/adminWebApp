@@ -26,3 +26,20 @@ $('#btnsubmit').on('click',function () {
         }
     });
 });
+
+$('button.btn-del').on('click', function () {
+    var delConfirm = confirm("Вы действительно хотите удалить новость?");
+    if(delConfirm) {
+        var newsID = $(this).attr('data-id');
+        $.ajax({
+            type:'POST',
+            url:'/delNews',
+            data: {
+                'id':newsID
+            },
+            error: function () {
+                alert('Возникла ошибка при удалении!');
+            }
+        })
+    }
+});

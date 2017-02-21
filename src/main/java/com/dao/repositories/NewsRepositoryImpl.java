@@ -26,13 +26,25 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
+    public News getNewsById(long id) {
+        Query query = session.createQuery("FROM News WHERE id=:id");
+        query.setParameter("id",id);
+        News news = null;
+        try {
+            news = (News) query.getSingleResult();
+        } catch (Exception e) {
+
+        }
+        return news;
+    }
+
+    @Override
     public List<News> getNewsByPageNumber(int page) {
         Query query = session.createQuery("FROM News ORDER BY id DESC").setFirstResult((page-1)*10).setMaxResults(10*page);
         List<News> result = null;
         try {
             result = query.getResultList();
         } catch (Exception e) {
-            throw new RuntimeException();
         }
         return result;
     }
@@ -52,7 +64,6 @@ public class NewsRepositoryImpl implements NewsRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            throw new RuntimeException();
         }
     }
 
@@ -66,8 +77,8 @@ public class NewsRepositoryImpl implements NewsRepository {
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
+            System.out.println("ERROR NEWS "+e.getMessage());
             transaction.rollback();
-            throw new RuntimeException();
         }
     }
 }

@@ -8,17 +8,17 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.ContextLoader;
 
 import java.util.List;
 
 /**
  * Created by ruslan on 05.02.2017.
  */
-
 @Repository
 public class NewsLinksRepositoryImpl implements NewsLinksRepository {
 
-    Session session;
+    private Session session;
 
     @Autowired
     public NewsLinksRepositoryImpl(SessionFactory session) {
@@ -41,15 +41,15 @@ public class NewsLinksRepositoryImpl implements NewsLinksRepository {
 
     @Override
     public void removeLink(Long id) {
-        Transaction transtacion = session.beginTransaction();
+        Transaction transaction = session.getTransaction();
         try {
-            transtacion.begin();
+            transaction.begin();
             Query query = session.createQuery("DELETE FROM Link WHERE news_id=:id");
             query.setParameter("id",id);
             query.executeUpdate();
-            transtacion.commit();
+            transaction.commit();
         } catch (Exception e) {
-            transtacion.rollback();
+            transaction.rollback();
         }
     }
 }

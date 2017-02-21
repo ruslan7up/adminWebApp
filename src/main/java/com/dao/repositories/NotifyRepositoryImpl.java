@@ -29,7 +29,6 @@ public class NotifyRepositoryImpl implements NotifyRepository {
         try {
            result = query.getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("error");
         }
         return result;
     }
@@ -42,7 +41,6 @@ public class NotifyRepositoryImpl implements NotifyRepository {
         try {
             result = query.getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("error");
         }
         return result;
     }
@@ -56,7 +54,6 @@ public class NotifyRepositoryImpl implements NotifyRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            throw new RuntimeException("error");
         }
     }
 }

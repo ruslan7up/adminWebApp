@@ -32,7 +32,6 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         try {
             result = query.getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("error");
         }
         return result;
     }
@@ -64,7 +63,6 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            throw new RuntimeException("error");
         }
 
     }
@@ -80,7 +78,6 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         } catch (Exception e)
         {
             transaction.rollback();
-            throw new RuntimeException("error");
         }
     }
 
@@ -94,7 +91,6 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         } catch (Exception e)
         {
             transaction.rollback();
-            throw new RuntimeException("error");
         }
     }
 }

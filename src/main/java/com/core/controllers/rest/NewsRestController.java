@@ -39,6 +39,7 @@ public class NewsRestController {
         if(session.getAttribute("user")!=null) {
             if(file!=null && !file.isEmpty()) {
                 List<Link> links = new ArrayList<>();
+                News news = new News(new String(title.getBytes("ISO-8859-1"),"UTF-8"),new Date(),new String(text.getBytes("ISO-8859-1"),"UTF-8"),links);
                 try {
                     for (MultipartFile tmp:file) {
                         if(!tmp.isEmpty() && tmp!=null && tmp.getOriginalFilename().matches("^.*\\.(png|bmp|jpg|jpeg)$")) {
@@ -49,11 +50,10 @@ public class NewsRestController {
                             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(path+name+extension)));
                             stream.write(bytes);
                             stream.close();
-                            links.add(new Link("/resources/newsres/"+name+extension));
+                            links.add(new Link("/resources/newsres/"+name+extension,news));
                         }
                     }
-                    Date date = new Date();
-                    News news = new News(new String(title.getBytes("ISO-8859-1"),"UTF-8"),date,new String(text.getBytes("ISO-8859-1"),"UTF-8"),links);
+
                     service.addNews(news);
                     response.setStatus(HttpServletResponse.SC_OK);
                 } catch (Exception e) {
@@ -94,5 +94,15 @@ public class NewsRestController {
     @RequestMapping(value = "/getNumberOfPages", method = RequestMethod.GET)
     public Integer getNumberOfPages() {
         return service.getNumberOfPages();
+    }
+
+    @RequestMapping(value = "/delNews", method = RequestMethod.POST)
+    public void delNews(@RequestParam String id, HttpSession session,HttpServletResponse response) {
+        if(session.getAttribute("user")!=null) {
+            service.removeNews(Long.parseLong(id));
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
     }
 }

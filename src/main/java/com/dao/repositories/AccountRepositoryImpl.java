@@ -29,7 +29,11 @@ public class AccountRepositoryImpl implements AccountRepository {
         Query query = session.createQuery("FROM Account WHERE login=:login");
         query.setParameter("login", login);
         Account account = null;
-        account = (Account) query.getSingleResult();
+        try {
+            account = (Account) query.getSingleResult();
+        } catch (Exception e) {
+
+        }
         return account;
     }
 
@@ -43,7 +47,6 @@ public class AccountRepositoryImpl implements AccountRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            throw new RuntimeException("error");
         }
     }
 }

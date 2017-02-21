@@ -1,9 +1,7 @@
 package com.core.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by ruslan on 05.02.2017.
@@ -15,11 +13,14 @@ public class Link {
     @GeneratedValue
     private Long id;
     private String link;
+
+    @NotNull
     @OneToOne
     private News news;
 
-    public Link(String link) {
+    public Link(String link, News news) {
         this.link = link;
+        this.news = news;
     }
 
     public Link() {
@@ -39,5 +40,13 @@ public class Link {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public News getNews() {
+        return news;
+    }
+
+    public void setNews(News news) {
+        this.news = news;
     }
 }

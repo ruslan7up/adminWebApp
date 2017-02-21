@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ruslan on 21.01.2017.
@@ -40,4 +41,11 @@ public class BellTimeRestController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
+
+
+    @RequestMapping(value = "/getbt", method = RequestMethod.POST)
+    public List<BellTime> getBellTime(){
+        return service.getBellTime();
+    }
+
 }

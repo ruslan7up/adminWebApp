@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,12 +53,11 @@ public class NotificationRestController {
                 }
                 if(http.getResponseCode()==200) {
                     response.setStatus(HttpServletResponse.SC_OK);
-                    notifyService.addNotify(new Notify(message));
+                    notifyService.addNotify(new Notify(message, new Date()));
                 } else {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
             } catch (Exception e) {
-                System.out.println("EXCEPTION CATCHED "+e.getMessage());
             }} else {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
