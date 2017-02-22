@@ -1,6 +1,8 @@
 package com.core.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -15,8 +17,8 @@ public class Class {
 
     @NotNull
     @OneToOne
+    @JsonIgnore
     private Schedule schedule;
-
 
     private String nameofasubject;
     private String cabinetnumber;
@@ -61,6 +63,4 @@ public class Class {
     public void setId(Long id) {
         this.id = id;
     }
-
-
 }

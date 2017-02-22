@@ -45,10 +45,15 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
     }
 
     @Override
-    public List<Schedule> getScheduleByName(String name) {
+    public Schedule getScheduleByName(String name) {
         Query query = session.createQuery("FROM Schedule WHERE name LIKE :ScheduleName");
-        query.setParameter("ScheduleName","%"+name+"%");
-        List<Schedule> result = query.getResultList();
+        query.setParameter("ScheduleName", name);
+        Schedule result = null;
+        try {
+          result = (Schedule) query.getSingleResult();
+        } catch (Exception e) {
+
+        }
         return result;
     }
 

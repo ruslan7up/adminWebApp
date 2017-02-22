@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ScheduleService {
     List<Schedule> getAllSchedules();
-    List<Schedule> getScheduleByName(String name);
+    Schedule getScheduleByName(String name);
     Schedule getScheduleByID(Long id);
     void addSchedule(Schedule schedule);
     void updateSchedule(Schedule schedule);

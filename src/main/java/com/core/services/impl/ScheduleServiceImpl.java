@@ -30,7 +30,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> getScheduleByName(String name) {
+    public Schedule getScheduleByName(String name) {
         return repository.getScheduleByName(name);
     }
 

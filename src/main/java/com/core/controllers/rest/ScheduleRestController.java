@@ -31,6 +31,7 @@ public class ScheduleRestController {
             Schedule schedule = null;
             try {
                 schedule = new ObjectMapper().readValue(json, Schedule.class);
+                schedule.setName(schedule.getName().toUpperCase());
             } catch (IOException e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
@@ -71,17 +72,14 @@ public class ScheduleRestController {
     }
 
     @RequestMapping(value = "/getByName", method = RequestMethod.POST)
-    public List<Schedule> getScheduleByName(@RequestParam String name, HttpSession session,HttpServletResponse response) {
-        if(session.getAttribute("user")!=null) {
-            if(name!=null && !name.isEmpty()) {
-                return scheduleService.getScheduleByName(name);
+    public Schedule getScheduleByName(@RequestParam String name, HttpSession session,HttpServletResponse response) {
+        System.out.println(name);
+        if(name!=null && !name.isEmpty()) {
+                return scheduleService.getScheduleByName(name.toUpperCase());
             } else {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
-        } else {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        }
-        return new ArrayList<>();
+        return null;
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.POST)

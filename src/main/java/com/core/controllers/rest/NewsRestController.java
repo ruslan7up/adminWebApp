@@ -88,7 +88,6 @@ public class NewsRestController {
 
     @RequestMapping(value = "/getNews/{page}", method = RequestMethod.GET)
     public List<News> getNews(@PathVariable("page") String page) {
-
         return service.getNewsByPageNumber(Integer.parseInt(page));
     }
 

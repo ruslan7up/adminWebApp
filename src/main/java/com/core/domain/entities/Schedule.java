@@ -1,9 +1,6 @@
 package com.core.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -17,6 +14,7 @@ public class Schedule {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
     private int shift;
 
