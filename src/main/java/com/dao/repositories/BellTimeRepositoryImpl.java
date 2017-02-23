@@ -17,16 +17,14 @@ import java.util.List;
 @Repository
 public class BellTimeRepositoryImpl implements BellTimeRepository {
 
-    private Session session;
 
     @Autowired
-    public BellTimeRepositoryImpl(SessionFactory session) {
-        this.session = session.openSession();
-    }
+    private SessionFactory sessionFactory;
+
 
     @Override
     public List<BellTime> getBellTime() {
-        Query query = session.createQuery("FROM BellTime ORDER BY id");
+        Query query = sessionFactory.openSession().createQuery("FROM BellTime ORDER BY id");
         List<BellTime> result = null;
         try {
             result = query.getResultList();
@@ -37,6 +35,7 @@ public class BellTimeRepositoryImpl implements BellTimeRepository {
 
     @Override
     public void updateBellTime(List<BellTime> bellTime) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();

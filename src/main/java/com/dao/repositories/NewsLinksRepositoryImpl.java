@@ -8,7 +8,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.context.ContextLoader;
 
 import java.util.List;
 
@@ -18,15 +17,13 @@ import java.util.List;
 @Repository
 public class NewsLinksRepositoryImpl implements NewsLinksRepository {
 
-    private Session session;
 
     @Autowired
-    public NewsLinksRepositoryImpl(SessionFactory session) {
-        this.session = session.openSession();
-    }
+    private SessionFactory sessionFactory;
 
     @Override
     public void addLink(List<Link> link) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
@@ -41,6 +38,7 @@ public class NewsLinksRepositoryImpl implements NewsLinksRepository {
 
     @Override
     public void removeLink(Long id) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();

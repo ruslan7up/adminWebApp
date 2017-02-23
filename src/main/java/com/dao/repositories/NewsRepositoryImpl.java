@@ -18,16 +18,14 @@ import java.util.List;
 @Repository
 public class NewsRepositoryImpl implements NewsRepository {
 
-    private Session session;
 
     @Autowired
-    public NewsRepositoryImpl(SessionFactory session) {
-        this.session = session.openSession();
-    }
+    private SessionFactory sessionFactory;
+
 
     @Override
     public News getNewsById(long id) {
-        Query query = session.createQuery("FROM News WHERE id=:id");
+        Query query = sessionFactory.openSession().createQuery("FROM News WHERE id=:id");
         query.setParameter("id",id);
         News news = null;
         try {
@@ -40,7 +38,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public List<News> getNewsByPageNumber(int page) {
-        Query query = session.createQuery("FROM News ORDER BY id DESC").setFirstResult((page-1)*10).setMaxResults(10*page);
+        Query query = sessionFactory.openSession().createQuery("FROM News ORDER BY id DESC").setFirstResult((page-1)*10).setMaxResults(10);
         List<News> result = null;
         try {
             result = query.getResultList();
@@ -51,12 +49,13 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public Integer getNumberOfPages() {
-        Long count = ((long) session.createQuery("SELECT count(*) from News").uniqueResult());
+        Long count = ((long) sessionFactory.openSession().createQuery("SELECT count(*) from News").uniqueResult());
         return (int) Math.ceil((double) count.intValue()/10);
     }
 
     @Override
     public void addNews(News news) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
@@ -69,6 +68,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public void removeNews(Long id) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();

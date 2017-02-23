@@ -18,16 +18,12 @@ import java.util.List;
 @Repository
 public class ScheduleRepositoryImpl implements ScheduleRepository {
 
-    private Session session;
-
     @Autowired
-    public ScheduleRepositoryImpl(SessionFactory session) {
-        this.session = session.openSession();
-    }
+    private SessionFactory sessionFactory;
 
     @Override
     public List<Schedule> getAllSchedules() {
-        Query query = session.createQuery("FROM Schedule");
+        Query query = sessionFactory.openSession().createQuery("FROM Schedule");
         List<Schedule> result = null;
         try {
             result = query.getResultList();
@@ -38,7 +34,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public Schedule getScheduleByID(Long id) {
-        Query query = session.createQuery("FROM Schedule WHERE id=:id");
+        Query query = sessionFactory.openSession().createQuery("FROM Schedule WHERE id=:id");
         query.setParameter("id", id);
         Schedule result = (Schedule) query.getSingleResult();
         return result;
@@ -46,7 +42,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public Schedule getScheduleByName(String name) {
-        Query query = session.createQuery("FROM Schedule WHERE name LIKE :ScheduleName");
+        Query query = sessionFactory.openSession().createQuery("FROM Schedule WHERE name LIKE :ScheduleName");
         query.setParameter("ScheduleName", name);
         Schedule result = null;
         try {
@@ -59,6 +55,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public void removeSchedule(Long id) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
@@ -74,6 +71,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public void addSchedule(Schedule schedule) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try
         {
@@ -88,6 +86,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public void updateSchedule(Schedule schedule) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();

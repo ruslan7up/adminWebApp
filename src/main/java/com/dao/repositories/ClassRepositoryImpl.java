@@ -17,16 +17,12 @@ import java.util.List;
 @Repository
 public class ClassRepositoryImpl implements ClassRepository {
 
-    private Session session;
-
     @Autowired
-    public ClassRepositoryImpl(SessionFactory session) {
-        this.session = session.openSession();
-    }
-
+    private SessionFactory sessionFactory;
 
     @Override
     public void addClass(List<List<Class>> clazz) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
@@ -43,6 +39,7 @@ public class ClassRepositoryImpl implements ClassRepository {
 
     @Override
     public void removeClass(Long id) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();

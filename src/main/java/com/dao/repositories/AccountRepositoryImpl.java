@@ -16,17 +16,15 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
-    private Session session;
 
     @Autowired
-    public AccountRepositoryImpl(SessionFactory session) {
-        this.session = session.openSession();
-    }
+    private SessionFactory sessionFactory;
+
 
 
     @Override
     public Account getAccountByLogin(String login) {
-        Query query = session.createQuery("FROM Account WHERE login=:login");
+        Query query = sessionFactory.openSession().createQuery("FROM Account WHERE login=:login");
         query.setParameter("login", login);
         Account account = null;
         try {
@@ -39,6 +37,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public void updateAccount(Account account) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try
         {

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,15 +17,13 @@ import java.util.List;
 @Repository
 public class NotifyRepositoryImpl implements NotifyRepository {
 
-    private Session session;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-    public NotifyRepositoryImpl(SessionFactory session) {
-        this.session = session.openSession();
-    }
 
     @Override
     public List<Notify> getAllNotifies() {
-        Query query = session.createQuery("FROM Notify");
+        Query query = sessionFactory.openSession().createQuery("FROM Notify");
         List<Notify> result = null;
         try {
            result = query.getResultList();
@@ -35,7 +34,7 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 
     @Override
     public List<Notify> getLastNotifies() {
-        Query query = session.createQuery("FROM Notify ORDER BY id DESC");
+        Query query = sessionFactory.openSession().createQuery("FROM Notify ORDER BY id DESC");
         query.setMaxResults(6);
         List<Notify> result = null;
         try {
@@ -47,6 +46,7 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 
     @Override
     public void addNotify(Notify notify) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
