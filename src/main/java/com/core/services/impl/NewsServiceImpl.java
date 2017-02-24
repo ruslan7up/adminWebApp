@@ -45,7 +45,6 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void addNews(News news) {
         repository.addNews(news);
-        linksRepository.addLink(news.getLinks());
     }
 
     @Override

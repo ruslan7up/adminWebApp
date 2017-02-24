@@ -25,31 +25,40 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public News getNewsById(long id) {
-        Query query = sessionFactory.openSession().createQuery("FROM News WHERE id=:id");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM News WHERE id=:id");
         query.setParameter("id",id);
         News news = null;
         try {
             news = (News) query.getSingleResult();
         } catch (Exception e) {
 
+        } finally {
+            session.close();
         }
         return news;
     }
 
     @Override
     public List<News> getNewsByPageNumber(int page) {
-        Query query = sessionFactory.openSession().createQuery("FROM News ORDER BY id DESC").setFirstResult((page-1)*10).setMaxResults(10);
+        System.out.println("CALLED");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM News ORDER BY id DESC").setFirstResult((page-1)*10).setMaxResults(10);
         List<News> result = null;
         try {
             result = query.getResultList();
         } catch (Exception e) {
+        } finally {
+            session.close();
         }
         return result;
     }
 
     @Override
     public Integer getNumberOfPages() {
-        Long count = ((long) sessionFactory.openSession().createQuery("SELECT count(*) from News").uniqueResult());
+        Session session = sessionFactory.openSession();
+        Long count = ((long) session.createQuery("SELECT count(*) from News").uniqueResult());
+        session.close();
         return (int) Math.ceil((double) count.intValue()/10);
     }
 
@@ -63,6 +72,8 @@ public class NewsRepositoryImpl implements NewsRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -79,6 +90,8 @@ public class NewsRepositoryImpl implements NewsRepository {
         } catch (Exception e) {
             System.out.println("ERROR NEWS "+e.getMessage());
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 }

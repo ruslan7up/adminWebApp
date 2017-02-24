@@ -34,6 +34,8 @@ public class ClassRepositoryImpl implements ClassRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -49,6 +51,8 @@ public class ClassRepositoryImpl implements ClassRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 }

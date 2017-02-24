@@ -21,8 +21,10 @@ public class Class {
     public Class() {
     }
 
-
-
+    public Class(String nameofasubject, String cabinetnumber) {
+        this.nameofasubject = nameofasubject;
+        this.cabinetnumber = cabinetnumber;
+    }
 
     public String getNameofasubject() {
         return nameofasubject;

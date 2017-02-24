@@ -24,11 +24,14 @@ public class BellTimeRepositoryImpl implements BellTimeRepository {
 
     @Override
     public List<BellTime> getBellTime() {
-        Query query = sessionFactory.openSession().createQuery("FROM BellTime ORDER BY id");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM BellTime ORDER BY id");
         List<BellTime> result = null;
         try {
             result = query.getResultList();
         } catch (Exception e) {
+        } finally {
+            session.close();
         }
         return result;
     }
@@ -45,6 +48,8 @@ public class BellTimeRepositoryImpl implements BellTimeRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 }

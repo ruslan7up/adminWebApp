@@ -23,23 +23,29 @@ public class NotifyRepositoryImpl implements NotifyRepository {
 
     @Override
     public List<Notify> getAllNotifies() {
-        Query query = sessionFactory.openSession().createQuery("FROM Notify");
+        Session session =sessionFactory.openSession();
+        Query query = session.createQuery("FROM Notify");
         List<Notify> result = null;
         try {
            result = query.getResultList();
         } catch (Exception e) {
+        } finally {
+            session.close();
         }
         return result;
     }
 
     @Override
     public List<Notify> getLastNotifies() {
-        Query query = sessionFactory.openSession().createQuery("FROM Notify ORDER BY id DESC");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Notify ORDER BY id DESC");
         query.setMaxResults(6);
         List<Notify> result = null;
         try {
             result = query.getResultList();
         } catch (Exception e) {
+        } finally {
+            session.close();
         }
         return result;
     }
@@ -54,6 +60,8 @@ public class NotifyRepositoryImpl implements NotifyRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 }

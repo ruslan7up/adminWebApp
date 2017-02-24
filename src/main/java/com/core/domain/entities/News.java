@@ -18,7 +18,7 @@ public class News {
     @Column(columnDefinition = "text")
     private String text;
 
-    @OneToMany(mappedBy = "news")
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Link> links;
 
     public News() {

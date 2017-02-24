@@ -33,6 +33,8 @@ public class NewsLinksRepositoryImpl implements NewsLinksRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -48,6 +50,8 @@ public class NewsLinksRepositoryImpl implements NewsLinksRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 }

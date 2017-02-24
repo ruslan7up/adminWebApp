@@ -20,17 +20,18 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-
-
     @Override
     public Account getAccountByLogin(String login) {
-        Query query = sessionFactory.openSession().createQuery("FROM Account WHERE login=:login");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Account WHERE login=:login");
         query.setParameter("login", login);
         Account account = null;
         try {
             account = (Account) query.getSingleResult();
         } catch (Exception e) {
 
+        } finally {
+            session.close();
         }
         return account;
     }
@@ -46,6 +47,8 @@ public class AccountRepositoryImpl implements AccountRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 }

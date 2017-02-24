@@ -23,32 +23,45 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     @Override
     public List<Schedule> getAllSchedules() {
-        Query query = sessionFactory.openSession().createQuery("FROM Schedule");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Schedule");
         List<Schedule> result = null;
         try {
             result = query.getResultList();
         } catch (Exception e) {
+        } finally {
+            session.close();
         }
         return result;
     }
 
     @Override
     public Schedule getScheduleByID(Long id) {
-        Query query = sessionFactory.openSession().createQuery("FROM Schedule WHERE id=:id");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Schedule WHERE id=:id");
         query.setParameter("id", id);
-        Schedule result = (Schedule) query.getSingleResult();
+        Schedule result = null;
+        try {
+            result = (Schedule) query.getSingleResult();
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
         return result;
     }
 
     @Override
     public Schedule getScheduleByName(String name) {
-        Query query = sessionFactory.openSession().createQuery("FROM Schedule WHERE name LIKE :ScheduleName");
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Schedule WHERE name LIKE :ScheduleName");
         query.setParameter("ScheduleName", name);
         Schedule result = null;
         try {
           result = (Schedule) query.getSingleResult();
         } catch (Exception e) {
             System.out.println("EXCEPTION "+e.getMessage());
+        } finally {
+            session.close();
         }
         return result;
     }
@@ -65,6 +78,8 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+        } finally {
+            session.close();
         }
 
     }
@@ -81,6 +96,8 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         } catch (Exception e)
         {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -95,6 +112,8 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         } catch (Exception e)
         {
             transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 }
