@@ -15,30 +15,14 @@ public class Class {
     @GeneratedValue
     private Long id;
 
-    @NotNull
-    @OneToOne
-    @JsonIgnore
-    private Schedule schedule;
-
     private String nameofasubject;
     private String cabinetnumber;
 
     public Class() {
     }
 
-    public Class(Schedule schedule, String nameofasubject, String cabinetnumber) {
-        this.schedule = schedule;
-        this.nameofasubject = nameofasubject;
-        this.cabinetnumber = cabinetnumber;
-    }
 
-    public Schedule getSchedule() {
-        return schedule;
-    }
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
 
     public String getNameofasubject() {
         return nameofasubject;

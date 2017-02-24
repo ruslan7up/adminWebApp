@@ -48,7 +48,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
         try {
           result = (Schedule) query.getSingleResult();
         } catch (Exception e) {
-
+            System.out.println("EXCEPTION "+e.getMessage());
         }
         return result;
     }

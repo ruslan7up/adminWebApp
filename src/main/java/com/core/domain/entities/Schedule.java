@@ -1,7 +1,12 @@
 package com.core.domain.entities;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Account on 13.01.2017.
@@ -18,22 +23,33 @@ public class Schedule {
     private String name;
     private int shift;
 
-    @OneToMany(mappedBy = "schedule")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "mon")
+    @JoinTable(name = "mon")
     private List<Class> monday;
-    @OneToMany(mappedBy = "schedule")
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "tue")
+    @JoinTable(name = "tue")
     private List<Class> tuesday;
-    @OneToMany(mappedBy = "schedule")
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "wed")
+    @JoinTable(name = "wed")
     private List<Class> wednesday;
-    @OneToMany(mappedBy = "schedule")
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "thu")
+    @JoinTable(name = "thu")
     private List<Class> thursday;
-    @OneToMany(mappedBy = "schedule")
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "fri")
+    @JoinTable(name = "fri")
     private List<Class> friday;
-
-
 
     public Schedule() {
     }
-
 
     public Schedule(String name, int shift, List<Class> monday, List<Class> tuesday, List<Class> wednesday, List<Class> thursday, List<Class> friday) {
         this.name = name;

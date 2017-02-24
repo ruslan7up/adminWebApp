@@ -1,5 +1,6 @@
 package com.core.controllers.rest;
 
+import com.core.domain.entities.Class;
 import com.core.domain.entities.Schedule;
 import com.core.services.ScheduleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,7 @@ public class ScheduleRestController {
             try {
                 schedule = new ObjectMapper().readValue(json, Schedule.class);
                 schedule.setName(schedule.getName().toUpperCase());
+
             } catch (IOException e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
@@ -79,6 +81,7 @@ public class ScheduleRestController {
             } else {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
+
         return null;
     }
 
