@@ -13,6 +13,7 @@ $('#sendnotify').on('click', function () {
             $('.result').removeClass('alert alert-danger');
             $('.result').addClass('alert alert-success');
             $('.result').html('<strong>Готово!</strong> Уведомление было успешно разослано всем пользователям!');
+            $('#notificationtext').val('');
         },
         error: function () {
             $('.result').removeClass('alert alert-success');

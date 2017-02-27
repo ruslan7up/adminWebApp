@@ -22,6 +22,8 @@ $('button.btn-del').on('click', function () {
             data: {
                 'id':scheduleID
             },
+            success: function () {location.reload();
+            },
             error: function () {
                 alert('При удалении возникла ошибка!');
             }
