@@ -18,6 +18,10 @@ public class Class {
     private String nameofasubject;
     private String cabinetnumber;
 
+
+    @OneToOne
+    private Schedule schedule;
+
     public Class() {
     }
 
@@ -48,5 +52,13 @@ public class Class {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 }

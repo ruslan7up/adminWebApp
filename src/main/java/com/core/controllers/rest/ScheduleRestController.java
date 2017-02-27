@@ -33,7 +33,6 @@ public class ScheduleRestController {
             try {
                 schedule = new ObjectMapper().readValue(json, Schedule.class);
                 schedule.setName(schedule.getName().toUpperCase());
-
             } catch (IOException e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
@@ -50,6 +49,7 @@ public class ScheduleRestController {
     public void removeSchedule(@RequestParam String id, HttpSession session, HttpServletResponse response) {
         if(session.getAttribute("user")!=null){
             scheduleService.removeSchedule(Long.parseLong(id));
+
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }

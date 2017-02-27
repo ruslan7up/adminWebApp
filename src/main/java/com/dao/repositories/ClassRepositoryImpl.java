@@ -50,6 +50,7 @@ public class ClassRepositoryImpl implements ClassRepository {
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
+            System.out.println("Class Exception "+e.getMessage());
             transaction.rollback();
         } finally {
             session.close();

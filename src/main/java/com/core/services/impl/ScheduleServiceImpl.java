@@ -49,6 +49,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         list.add(schedule.getWednesday());
         list.add(schedule.getThursday());
         list.add(schedule.getFriday());
+        for (List<Class> tmp: list) {
+            for (Class tmp2: tmp) {
+                tmp2.setSchedule(schedule);
+            }
+        }
         repository.addSchedule(schedule);
 
     }
@@ -61,6 +66,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void removeSchedule(Long id) {
+        Schedule schedule = getScheduleByID(id);
+        schedule.getMonday().clear();
+        schedule.getTuesday().clear();
+        schedule.getWednesday().clear();
+        schedule.getThursday().clear();
+        schedule.getFriday().clear();
+        updateSchedule(schedule);
         classrepository.removeClass(id);
         repository.removeSchedule(id);
     }

@@ -77,6 +77,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
+            System.out.println("NEWS EXCEPTION "+e.getMessage());
             transaction.rollback();
         } finally {
             session.close();
