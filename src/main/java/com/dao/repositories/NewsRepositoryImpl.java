@@ -41,7 +41,6 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public List<News> getNewsByPageNumber(int page) {
-        System.out.println("CALLED");
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("FROM News ORDER BY id DESC").setFirstResult((page-1)*10).setMaxResults(10);
         List<News> result = null;

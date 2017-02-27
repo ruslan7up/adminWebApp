@@ -35,6 +35,7 @@ public class AuthController {
             Account account = service.getAccountByLogin("admin");
             if(encoder.matches(oldpass,account.getPassword())) {
                 account.setPassword(encoder.encode(newpass));
+                service.updateAccount(account);
                 session.removeAttribute("user");
                 try {
                     response.sendRedirect("/");

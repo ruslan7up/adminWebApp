@@ -11,9 +11,12 @@
     <title>Изменить пароль</title>
 </head>
 <body>
-<input type="password" placeholder="Текущий пароль">
-<input type="password" placeholder="Новый пароль">
-<input type="password" placeholder="Новый пароль еще раз">
+<input type="password" id="oldpass" placeholder="Текущий пароль">
+<input type="password" id="newpass" placeholder="Новый пароль">
+<input type="password" id="newpass2" placeholder="Новый пароль еще раз">
 <button type="submit">Изменить</button>
+
+<script src="/resources/jquery/jquery-3.1.1.js"></script>
+<script src="/resources/js/changePassScripts.js"></script>
 </body>
 </html>
