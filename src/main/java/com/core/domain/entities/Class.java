@@ -20,6 +20,7 @@ public class Class {
 
 
     @OneToOne
+    @JsonIgnore
     private Schedule schedule;
 
     public Class() {
