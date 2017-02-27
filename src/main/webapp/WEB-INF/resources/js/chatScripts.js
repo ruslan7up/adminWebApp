@@ -14,7 +14,7 @@ socket.onmessage = function (event) {
 };
 
 socket.onopen = function () {
-  alert("CONNECTION ESTABLISHED!");
+
 };
 
 $('#sendmessage').on('click', function () {

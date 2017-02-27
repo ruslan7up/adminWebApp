@@ -69,7 +69,7 @@ $('#tryedit').on('click',function() {
     });
 
 
-    alert('DEBUG: '+JSON.stringify(jsonRows));
+  /*  alert('DEBUG: '+JSON.stringify(jsonRows));*/
 
     $.ajax({
         type: 'post',
@@ -78,10 +78,11 @@ $('#tryedit').on('click',function() {
             'json':JSON.stringify(jsonRows)
         },
         success: function () {
-            alert('DONE');
+            alert('Успешно добавлено');
+            window.location="/schedule/schedulelist";
         },
         error: function () {
-            alert('ERROR');
+            alert('Возникла ошибка при добавлении!');
         }
     })
 });

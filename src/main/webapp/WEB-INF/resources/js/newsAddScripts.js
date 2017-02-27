@@ -19,7 +19,7 @@ $('#btnsubmit').on('click',function () {
         contentType: false,
         success: function () {
             alert("Новость добавлена!");
-            window.location = "/home";
+            window.location = "/news/create";
         },
         error: function () {
             alert("При добавлении возникла ошибка!");
