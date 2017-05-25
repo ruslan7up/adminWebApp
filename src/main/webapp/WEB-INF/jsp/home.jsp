@@ -16,6 +16,7 @@
 <h1>Меню</h1>
 <a href="/news/create">Новости</a>
 <a href="/schedule/schedulelist">Расписание</a>
+<a href="/lessonspage">Замена занятий</a>
 <a href="/belltime/belltimetable">Расписание звонков</a>
 <a href="/chat/get">Чат</a>
 <a href="/notification/send">Уведомления</a>
